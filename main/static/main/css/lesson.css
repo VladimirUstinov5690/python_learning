@@ -1,0 +1,146 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f8f9fa;
+  overflow-x: hidden;
+}
+
+#wrapper {
+  display: flex;
+}
+
+/* === Sidebar === */
+.sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, #7f00ff, #5a00b5);
+  color: #fff;
+  min-height: 100vh;
+  padding: 20px;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar h3 {
+  font-weight: 600;
+  margin-bottom: 20px;
+  word-break: break-word;
+}
+
+/* ссылки в боковом меню */
+.sidebar .nav {
+  flex-grow: 1;
+  overflow-y: auto; /* прокрутка при длинных списках */
+}
+
+.sidebar .nav-link {
+  color: #e0d4ff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 8px 10px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  max-width: 100%;
+}
+
+.sidebar .nav-link i {
+  flex-shrink: 0;
+}
+
+.sidebar .nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.sidebar .nav-link.active {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-weight: 600;
+}
+
+.sidebar .btn-home {
+  display: block;
+  background: #fff;
+  color: #5a00b5;
+  text-align: center;
+  font-weight: 600;
+  border-radius: 30px;
+  padding: 10px;
+  margin-top: 20px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.sidebar .btn-home:hover {
+  background: #f2f2f2;
+}
+
+/* === Main Content === */
+#page-content-wrapper {
+  margin-left: 260px;
+  padding: 40px;
+  flex-grow: 1;
+}
+
+.top-bar h2 {
+  font-size: 1.8rem;
+}
+
+.btn-gradient {
+  background: linear-gradient(90deg, #7f00ff, #5a00b5, #4b0082);
+  color: #fff;
+  border: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-gradient:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(127, 0, 255, 0.25);
+}
+
+/* === Пагинация (слайдер шаги) === */
+.progress-steps {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.progress-steps .step {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(127, 0, 255, 0.25);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.progress-steps .step.active {
+  background: #7f00ff;
+  box-shadow: 0 0 10px rgba(127, 0, 255, 0.6);
+  transform: scale(1.2);
+}
+
+/* === Контент урока === */
+.lesson-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 25px;
+}
+
+.lesson-content h4 {
+  color: #4b0082;
+}
+
+.example {
+  border-left: 4px solid #7f00ff !important;
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, #7f00ff, #5a00b5, #4b0082);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

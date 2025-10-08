@@ -1,0 +1,31 @@
+/* === Курсы (страница Courses) === */
+.course-level {
+  border-top: 2px solid rgba(127, 0, 255, 0.2);
+  border-bottom: 2px solid rgba(127, 0, 255, 0.2);
+  padding: 30px 0;
+  margin-bottom: 30px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fff;
+  border-radius: 12px;
+}
+
+.course-level:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(127, 0, 255, 0.15);
+}
+
+.course-level h3 {
+  color: #4b0082;
+}
+
+.course-level p {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Добавим лёгкий фон секции для визуального отделения */
+section.container {
+  background-color: #faf8ff;
+  border-radius: 16px;
+  padding: 40px;
+}

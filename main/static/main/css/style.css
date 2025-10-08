@@ -1,0 +1,197 @@
+body {
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+}
+
+/* === Градиентный текст === */
+.text-gradient {
+  background: linear-gradient(90deg, #7f00ff, #5a00b5, #4b0082);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* === Кнопка с градиентом === */
+.btn-gradient {
+  background: linear-gradient(90deg, #7f00ff, #5a00b5, #4b0082);
+  border: none;
+  color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-gradient:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 15px rgba(123, 0, 255, 0.3);
+}
+
+/* === Hero Section === */
+.hero {
+  background: linear-gradient(to right, #7f00ff, #5a00b5, #4b0082);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1s ease-in forwards;
+}
+
+.fade-in-delay {
+  opacity: 0;
+  animation: fadeIn 1.5s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* === Hover эффект для карточек === */
+.hover-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 20px rgba(127, 0, 255, 0.25);
+}
+
+/* === CTA Section === */
+.cta {
+  background: linear-gradient(to right, #4b0082, #5a00b5, #7f00ff);
+}
+
+/* === Navbar === */
+.navbar {
+  transition: all 0.3s ease;
+}
+
+.navbar-nav .nav-link {
+  font-weight: 500;
+  color: #333 !important;
+  transition: color 0.3s;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #7f00ff !important;
+}
+
+.navbar.scrolled {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+/* === Курсы (страница Courses) === */
+.course-level {
+  border-top: 2px solid rgba(127, 0, 255, 0.2);
+  border-bottom: 2px solid rgba(127, 0, 255, 0.2);
+  padding: 30px 0;
+  margin-bottom: 30px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background-color: #fff;
+  border-radius: 12px;
+}
+
+.course-level:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(127, 0, 255, 0.15);
+}
+
+.course-level h3 {
+  color: #4b0082;
+}
+
+.course-level p {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Добавим лёгкий фон секции для визуального отделения */
+section.container {
+  background-color: #faf8ff;
+  border-radius: 16px;
+  padding: 40px;
+}
+
+
+/* === Страница регистрации === */
+.auth-section {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #7f00ff, #5a00b5, #4b0082);
+  padding: 40px 15px;
+}
+
+.auth-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 40px 35px;
+  max-width: 460px;
+  width: 100%;
+  animation: fadeIn 0.6s ease;
+}
+
+.auth-form .form-group {
+  margin-bottom: 18px;
+}
+
+.auth-form input:focus,
+.auth-form select:focus {
+  border-color: #7f00ff;
+  box-shadow: 0 0 8px rgba(127, 0, 255, 0.25);
+  background: #fff;
+  outline: none;
+}
+
+/* === Кнопка === */
+.btn-gradient {
+  background: linear-gradient(90deg, #7f00ff, #5a00b5, #4b0082);
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 20px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
+}
+
+.btn-gradient:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(127, 0, 255, 0.3);
+}
+
+/* === Анимация появления === */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* === Текст === */
+.text-gradient {
+  background: linear-gradient(90deg, #7f00ff, #5a00b5, #4b0082);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* === Контакты === */
+.contact-card {
+  border-radius: 16px;
+  background-color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(127, 0, 255, 0.15);
+}
+
+.contact-info li i {
+  font-size: 1.2rem;
+  vertical-align: middle;
+}
+
+.contact-info a:hover {
+  color: #7f00ff;
+  text-decoration: underline;
+}
