@@ -1,0 +1,70 @@
+# === Python ===
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*$py.class
+*.sqlite3
+
+# === Virtual Environments ===
+venv/
+p_venv/
+env/
+.venv/
+.env/
+
+# === Django specific ===
+*.log
+staticfiles/
+media/
+db.sqlite3
+local_settings.py
+
+# === IDE ===
+# PyCharm / JetBrains
+.idea/
+*.iml
+
+# VSCode
+.vscode/
+
+# === OS files ===
+.DS_Store
+Thumbs.db
+
+# === Environment files ===
+.env
+*.env
+
+# === Cache / Build ===
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+pip-log.txt
+pip-delete-this-directory.txt
+__pypackages__/
+
+# === Coverage / Testing ===
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pyre/
+.pytype/
+mypy_cache/
+
+# === Jupyter / Notebooks ===
+.ipynb_checkpoints/
+
+# === VSCode launch configs ===
+.vscode/
