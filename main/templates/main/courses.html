@@ -16,8 +16,9 @@
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav">
-        <li class="nav-item"><a class="nav-link" href="#">О нас</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Контакты</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">На главную</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Консоль</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'contacts' %}">Контакты</a></li>
         <li class="nav-item"><a class="btn btn-gradient ms-3" href="#">Войти</a></li>
       </ul>
     </div>
@@ -30,92 +31,26 @@
   <h1 class="fw-bold text-gradient mb-4">Курсы по Python</h1>
   <p class="mb-5 text-muted fs-5">Освой Python шаг за шагом — от базового синтаксиса до создания собственных проектов.</p>
 
-  <div class="row g-4">
-    <!-- Основы Python -->
-    <div class="col-md-4">
-      <div class="card h-100 shadow-sm border-0 hover-card">
-        <img src="{% static 'main/img/python_basics.jpg' %}" class="card-img-top rounded-top" alt="Основы Python">
-        <div class="card-body">
-          <h5 class="card-title text-gradient fw-semibold">Основы Python</h5>
-          <p class="card-text text-muted">
-            Изучи базовый синтаксис, переменные, циклы и функции. Идеально для начинающих программистов.
-          </p>
-          <a href="{% url 'course_detail' %}" class="btn btn-gradient w-100 mt-3">Подробнее</a>
+  <!-- добавлено d-flex align-items-stretch -->
+  <div class="row g-4 d-flex align-items-stretch">
+    {% for course in all_courses %}
+      <div class="col-md-4 d-flex">
+        <div class="card shadow-sm border-0 hover-card flex-fill">
+        {% if course.image %}
+            <img src="{{ course.image.url }}" class="card-img-top course-img" alt="{{ course.title }}">
+        {% else %}
+            <img src="{% static 'main/img/default_course.jpg' %}" class="card-img-top course-img" alt="Нет изображения">
+        {% endif %}
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title text-gradient fw-semibold">{{ course.title }}</h5>
+            <p class="card-text text-muted flex-grow-1">{{ course.description|truncatechars:120 }}</p>
+            <a href="{% url 'course_detail' course.id %}" class="btn btn-gradient w-100 mt-auto">Подробнее</a>
+          </div>
         </div>
       </div>
-    </div>
-
-    <!-- ООП -->
-    <div class="col-md-4">
-      <div class="card h-100 shadow-sm border-0 hover-card">
-        <img src="{% static 'main/img/oop.jpg' %}" class="card-img-top rounded-top" alt="ООП Python">
-        <div class="card-body">
-          <h5 class="card-title text-gradient fw-semibold">ООП в Python</h5>
-          <p class="card-text text-muted">
-            Научись работать с классами, наследованием и полиморфизмом. Пойми, как думает объектный код.
-          </p>
-          <a href="#" class="btn btn-gradient w-100 mt-3">Подробнее</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Django -->
-    <div class="col-md-4">
-      <div class="card h-100 shadow-sm border-0 hover-card">
-        <img src="{% static 'main/img/django.jpg' %}" class="card-img-top rounded-top" alt="Django">
-        <div class="card-body">
-          <h5 class="card-title text-gradient fw-semibold">Django</h5>
-          <p class="card-text text-muted">
-            Создавай полноценные сайты и веб-приложения с Django. От моделей и шаблонов до деплоя.
-          </p>
-          <a href="#" class="btn btn-gradient w-100 mt-3">Подробнее</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row g-4 mt-4">
-    <!-- FastAPI -->
-    <div class="col-md-4">
-      <div class="card h-100 shadow-sm border-0 hover-card">
-        <img src="{% static 'main/img/fastapi.jpg' %}" class="card-img-top rounded-top" alt="FastAPI">
-        <div class="card-body">
-          <h5 class="card-title text-gradient fw-semibold">FastAPI</h5>
-          <p class="card-text text-muted">
-            Создавай быстрые и современные API. Асинхронность, документация и высокая производительность.
-          </p>
-          <a href="#" class="btn btn-gradient w-100 mt-3">Подробнее</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- SQL -->
-    <div class="col-md-4">
-      <div class="card h-100 shadow-sm border-0 hover-card">
-        <img src="{% static 'main/img/sql.jpg' %}" class="card-img-top rounded-top" alt="SQL">
-        <div class="card-body">
-          <h5 class="card-title text-gradient fw-semibold">Работа с базами данных (SQL)</h5>
-          <p class="card-text text-muted">
-            Изучи основы SQL и взаимодействие Python с базами данных: PostgreSQL, SQLite и другие.
-          </p>
-          <a href="#" class="btn btn-gradient w-100 mt-3">Подробнее</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Проекты -->
-    <div class="col-md-4">
-      <div class="card h-100 shadow-sm border-0 hover-card">
-        <img src="{% static 'main/img/projects.jpg' %}" class="card-img-top rounded-top" alt="Проекты на Python">
-        <div class="card-body">
-          <h5 class="card-title text-gradient fw-semibold">Проектная практика</h5>
-          <p class="card-text text-muted">
-            Реализуй свои знания на практике: создай Telegram-бота, REST API или собственный сайт.
-          </p>
-          <a href="#" class="btn btn-gradient w-100 mt-3">Подробнее</a>
-        </div>
-      </div>
-    </div>
+    {% empty %}
+      <p class="text-muted">Пока нет доступных курсов 😔</p>
+    {% endfor %}
   </div>
 </section>
 {% endblock %}

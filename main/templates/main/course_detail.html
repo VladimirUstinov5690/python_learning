@@ -1,102 +1,64 @@
+{% extends 'main/base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Урок — Основы Python</title>
+{% block title %}{{ course.title }} — PyMaster{% endblock %}
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="{% static 'main/css/lesson.css' %}">
-</head>
-<body>
+{% block extra_styles %}
+<link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+{% endblock %}
 
-<div class="d-flex" id="wrapper">
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div>
-      <h3>🐍 Основы Python</h3>
-      <ul class="nav flex-column">
-        <li><a href="#" class="nav-link active"><i class="bi bi-code"></i> Урок 1: Введение в Python</a></li>
-        <li><a href="#" class="nav-link"><i class="bi bi-terminal"></i> Урок 2: Переменные и типы данных</a></li>
-        <li><a href="#" class="nav-link"><i class="bi bi-shuffle"></i> Урок 3: Условные операторы</a></li>
-        <li><a href="#" class="nav-link"><i class="bi bi-repeat"></i> Урок 4: Циклы и итерации</a></li>
-        <li><a href="#" class="nav-link"><i class="bi bi-braces"></i> Урок 5: Функции</a></li>
+{% block header %}
+<header class="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold fs-3 text-gradient" href="{% url 'home' %}">PyMaster</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="{% url 'courses' %}">Курсы</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Консоль</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'contacts' %}">Контакты</a></li>
+        <li class="nav-item"><a class="btn btn-gradient ms-3" href="#">Войти</a></li>
       </ul>
     </div>
-    <a href="{% url 'courses' %}" class="btn-home"><i class="bi bi-house-door"></i> Все курсы</a>
-  </aside>
+  </div>
+</header>
+{% endblock %}
 
-  <!-- Main Content -->
-  <main id="page-content-wrapper">
-    <div class="top-bar d-flex justify-content-between align-items-center mb-4">
-      <h2 class="text-gradient fw-bold">Урок 2: Переменные и типы данных</h2>
-      <button class="btn btn-gradient"><i class="bi bi-person-circle me-2"></i>Профиль</button>
-    </div>
+{% block content %}
+<section class="course-section py-5 mt-5">
+  <div class="container">
+    <h1 class="fw-bold text-gradient mb-4 text-center">{{ course.title }}</h1>
+    <p class="mb-5 text-muted fs-5 text-center">{{ course.description }}</p>
 
-    <!-- Пагинация слайдов -->
-    <div class="progress-steps mb-4">
-      <span class="step"></span>
-      <span class="step active"></span>
-      <span class="step"></span>
-      <span class="step"></span>
-      <span class="step"></span>
-    </div>
+    {% for module in modules %}
+      <div class="module-card card shadow-sm border-0 mb-5 mx-auto">
+        <div class="card-body">
+          <h4 class="text-gradient">{{ module.title }}</h4>
+          {% if module.description %}
+            <p class="text-muted">{{ module.description }}</p>
+          {% endif %}
 
-    <section class="lesson-content shadow-sm rounded bg-white">
-      <h4 class="fw-semibold mb-3">Переменные в Python</h4>
-      <p class="lead">Переменные — это “контейнеры” для хранения данных. В Python переменные создаются при первом присваивании значения.</p>
-
-      <div class="example mt-4 p-3 bg-light rounded">
-        <p><strong>Пример:</strong></p>
-        <pre><code>name = "Alex"
-age = 25
-print(name, age)</code></pre>
+          <ul class="list-group list-group-flush mt-3">
+            {% for lesson in module.lessons.all %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>{{ lesson.title }}</span>
+                {% if lesson.slides.exists %}
+                  <a href="{% url 'lesson_view' lesson.id 1 %}" class="btn btn-sm btn-gradient">Открыть</a>
+                {% else %}
+                  <button class="btn btn-sm btn-secondary" disabled>Нет слайдов</button>
+                {% endif %}
+              </li>
+            {% empty %}
+              <li class="list-group-item text-muted">Уроков пока нет.</li>
+            {% endfor %}
+          </ul>
+        </div>
       </div>
-
-      <h4 class="fw-semibold mt-4">Типы данных</h4>
-      <p class="lead">Python имеет несколько базовых типов данных: <code>int</code> (числа), <code>float</code> (дробные числа), <code>str</code> (строки), <code>bool</code> (логические значения).</p>
-
-      <div class="example mt-4 p-3 bg-light rounded">
-        <ul>
-          <li><code>int</code> — целые числа: <code>x = 10</code></li>
-          <li><code>float</code> — дробные: <code>pi = 3.14</code></li>
-          <li><code>str</code> — строки: <code>name = "Python"</code></li>
-          <li><code>bool</code> — логические: <code>is_active = True</code></li>
-        </ul>
-      </div>
-
-      <div class="quiz mt-5">
-        <h5 class="fw-bold mb-3">Проверь себя 💡</h5>
-        <p>Выбери правильное определение переменной:</p>
-
-        <form>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="quiz1" id="q1a">
-            <label class="form-check-label" for="q1a">Это инструкция для выполнения цикла.</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="quiz1" id="q1b">
-            <label class="form-check-label" for="q1b">Это имя, ссылающееся на хранимое значение в памяти.</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" type="radio" name="quiz1" id="q1c">
-            <label class="form-check-label" for="q1c">Это встроенная функция Python.</label>
-          </div>
-
-          <button class="btn btn-gradient mt-3">Проверить ответ</button>
-        </form>
-      </div>
-
-      <div class="text-end mt-5">
-        <a href="#" class="btn btn-gradient">Следующий слайд →</a>
-      </div>
-    </section>
-  </main>
-</div>
-
-</body>
-</html>
+    {% empty %}
+      <p class="text-muted text-center">Пока нет разделов 😔</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

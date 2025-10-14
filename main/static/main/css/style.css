@@ -1,6 +1,8 @@
+/* === Общие стили === */
 body {
   font-family: 'Poppins', sans-serif;
   overflow-x: hidden;
+  background-color: #faf8ff;
 }
 
 /* === Градиентный текст === */
@@ -10,17 +12,66 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-/* === Кнопка с градиентом === */
+/* === Градиентная кнопка === */
 .btn-gradient {
   background: linear-gradient(90deg, #7f00ff, #5a00b5, #4b0082);
-  border: none;
   color: #fff;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 20px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: all 0.3s ease;
 }
 
 .btn-gradient:hover {
   transform: translateY(-3px);
-  box-shadow: 0 8px 15px rgba(123, 0, 255, 0.3);
+  box-shadow: 0 6px 20px rgba(127, 0, 255, 0.3);
+}
+
+/* === Navbar (тёмная версия) === */
+.navbar {
+  background: linear-gradient(90deg, #1a1a1d, #2c2c34, #3a3a46);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
+
+.navbar-brand {
+  color: #fff !important;
+}
+
+.navbar-nav .nav-link {
+  font-weight: 500;
+  color: #ddd !important;
+  transition: color 0.3s, transform 0.2s;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #9d7dff !important;
+  transform: translateY(-1px);
+}
+
+.navbar-toggler {
+  border: none;
+}
+
+.navbar-toggler-icon {
+  filter: invert(1); /* делает иконку "гамбургер" белой */
+}
+
+/* Кнопка "Войти" в шапке */
+.navbar .btn-gradient {
+  background: linear-gradient(90deg, #8a2be2, #6b00b6);
+  color: #fff;
+  border-radius: 25px;
+  font-weight: 600;
+  padding: 8px 18px;
+  font-size: 0.9rem;
+}
+
+.navbar .btn-gradient:hover {
+  box-shadow: 0 0 12px rgba(140, 82, 255, 0.4);
+  transform: translateY(-2px);
 }
 
 /* === Hero Section === */
@@ -30,6 +81,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #fff;
 }
 
 .fade-in {
@@ -43,55 +95,72 @@ body {
 }
 
 @keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* === Hover эффект для карточек === */
 .hover-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .hover-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-8px);
   box-shadow: 0 8px 20px rgba(127, 0, 255, 0.25);
 }
 
-/* === CTA Section === */
-.cta {
-  background: linear-gradient(to right, #4b0082, #5a00b5, #7f00ff);
+/* --- Контейнер карточки --- */
+.card-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-/* === Navbar === */
-.navbar {
-  transition: all 0.3s ease;
+.card-text {
+  min-height: 72px; /* выравнивает описание по высоте */
+  color: #555;
 }
 
-.navbar-nav .nav-link {
-  font-weight: 500;
-  color: #333 !important;
-  transition: color 0.3s;
+/* === Фикс для пляшущих карточек === */
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-.navbar-nav .nav-link:hover {
-  color: #7f00ff !important;
+.card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
 }
 
-.navbar.scrolled {
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+.card-text {
+  flex-grow: 1; /* описание растягивается, заполняя пространство */
+  color: #555;
 }
 
+.card-body .btn-gradient {
+  margin-top: auto; /* кнопка всегда прижата к низу карточки */
+}
 
-/* === Курсы (страница Courses) === */
+/* === Раздел "Курсы" === */
+section.container {
+  border-radius: 16px;
+  padding: 40px;
+  background-color: #faf8ff;
+}
+
 .course-level {
-  border-top: 2px solid rgba(127, 0, 255, 0.2);
-  border-bottom: 2px solid rgba(127, 0, 255, 0.2);
-  padding: 30px 0;
-  margin-bottom: 30px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
   background-color: #fff;
   border-radius: 12px;
+  padding: 30px 0;
+  border-top: 2px solid rgba(127, 0, 255, 0.2);
+  border-bottom: 2px solid rgba(127, 0, 255, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .course-level:hover {
@@ -108,13 +177,11 @@ body {
   color: #555;
 }
 
-/* Добавим лёгкий фон секции для визуального отделения */
-section.container {
-  background-color: #faf8ff;
-  border-radius: 16px;
-  padding: 40px;
+/* === CTA Section === */
+.cta {
+  background: linear-gradient(to right, #4b0082, #5a00b5, #7f00ff);
+  color: #fff;
 }
-
 
 /* === Страница регистрации === */
 .auth-section {
@@ -144,36 +211,6 @@ section.container {
   outline: none;
 }
 
-/* === Кнопка === */
-.btn-gradient {
-  background: linear-gradient(90deg, #7f00ff, #5a00b5, #4b0082);
-  color: #fff;
-  border: none;
-  border-radius: 30px;
-  padding: 12px 20px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  transition: all 0.3s ease;
-}
-
-.btn-gradient:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(127, 0, 255, 0.3);
-}
-
-/* === Анимация появления === */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* === Текст === */
-.text-gradient {
-  background: linear-gradient(90deg, #7f00ff, #5a00b5, #4b0082);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
 /* === Контакты === */
 .contact-card {
   border-radius: 16px;
@@ -194,4 +231,151 @@ section.container {
 .contact-info a:hover {
   color: #7f00ff;
   text-decoration: underline;
+}
+
+/* === Страница курса === */
+.course-section {
+  background-color: #faf8ff;
+  padding: 40px 0;
+}
+
+/* Центрируем и сужаем контент */
+.course-section .container {
+  max-width: 720px; /* было 900 — теперь компактнее */
+}
+
+/* Карточка модуля */
+.module-card {
+  border-radius: 14px;
+  background: #fff;
+  padding: 25px 20px;
+  box-shadow: 0 4px 12px rgba(127, 0, 255, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.module-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(127, 0, 255, 0.12);
+}
+
+/* Заголовок модуля */
+.module-card h4 {
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 1.4rem;
+}
+
+/* Описание модуля */
+.module-card p.text-muted {
+  color: #666;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Уроки */
+.list-group {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.list-group-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 8px 14px;
+  transition: background 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.list-group-item:last-child {
+  border-bottom: none;
+}
+
+.list-group-item:hover {
+  background-color: rgba(127, 0, 255, 0.03);
+}
+
+.list-group-item span {
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Кнопки внутри карточек */
+.list-group-item .btn {
+  flex-shrink: 0;
+  font-size: 0.85rem;
+  padding: 5px 12px;
+  border-radius: 20px;
+}
+
+/* Для узких экранов */
+@media (max-width: 768px) {
+  .course-section .container {
+    padding: 0 15px;
+    max-width: 100%;
+  }
+
+  .module-card {
+    padding: 20px 15px;
+  }
+
+  .list-group-item span {
+    white-space: normal;
+  }
+}
+
+/* === Футер всегда внизу === */
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Контент страницы занимает всё оставшееся пространство */
+main, .course-section {
+  flex: 1 0 auto;
+}
+
+/* Футер прижат к низу */
+footer {
+  flex-shrink: 0;
+  background: #1a1a1d;
+  color: #ccc;
+  text-align: center;
+  padding: 20px 0;
+  margin-top: auto;
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+footer a {
+  color: #9d7dff;
+  text-decoration: none;
+  margin: 0 8px;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+.hero .container {
+  margin-top: -100px; /* поднимает контент вверх без изменения высоты */
+}
+
+/* === Единый стиль для обложек курсов === */
+.course-img {
+  width: 100%;                  /* занимает всю ширину карточки */
+  height: 220px;                /* фиксированная высота */
+  object-fit: cover;            /* обрезает картинку, сохраняя пропорции */
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background-color: #f2f2f7;    /* если картинка не загрузилась */
 }

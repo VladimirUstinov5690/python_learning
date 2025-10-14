@@ -1,0 +1,91 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ lesson.title }} — {{ course.title }}</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="{% static 'main/css/lesson.css' %}">
+</head>
+<body>
+
+<div class="d-flex" id="wrapper">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div>
+      <h3>🐍 {{ course.title }}</h3>
+
+      {% for m in modules %}
+        <h6 class="mt-3">{{ m.title }}</h6>
+        <ul class="nav flex-column">
+          {% for l in m.lessons.all %}
+            <li>
+              <a href="{% url 'lesson_view' l.id 1 %}"
+                 class="nav-link {% if l.id == lesson.id %}active{% endif %}">
+                 <i class="bi bi-code-slash"></i> {{ l.title }}
+              </a>
+            </li>
+          {% endfor %}
+        </ul>
+      {% endfor %}
+    </div>
+
+    <a href="{% url 'courses' %}" class="btn-home"><i class="bi bi-house-door"></i> Все курсы</a>
+  </aside>
+
+  <!-- Main Content -->
+  <main id="page-content-wrapper">
+    <div class="top-bar d-flex justify-content-between align-items-center mb-4 flex-wrap">
+      <h2 class="text-gradient fw-bold">{{ lesson.title }}</h2>
+
+      <!-- Блок кнопок справа -->
+      <div class="d-flex gap-2 flex-wrap">
+        <a href="{% url 'home' %}" class="btn btn-gradient"><i class="bi bi-house"></i> Главная</a>
+        <button class="btn btn-gradient"><i class="bi bi-person-circle me-2"></i>Профиль</button>
+      </div>
+    </div>
+
+    <!-- Пагинация слайдов -->
+    <div class="progress-steps mb-4">
+      {% for s in slides %}
+        <span class="step {% if s == current_slide %}active{% endif %}"></span>
+      {% endfor %}
+    </div>
+
+    <!-- Контент слайда -->
+    <section class="lesson-content shadow-sm rounded bg-white p-4">
+      {% if current_slide %}
+        <h4 class="fw-semibold mb-3">Слайд {{ current_slide.order }}</h4>
+        <div class="slide-content">{{ current_slide.content|safe }}</div>
+
+        <div class="d-flex justify-content-between mt-5 flex-wrap">
+          <!-- Кнопка "Предыдущий слайд" -->
+          {% if current_slide.order > 1 %}
+            <a href="{% url 'lesson_view' lesson.id current_slide.order|add:-1 %}" class="btn btn-outline-secondary mb-2">
+              ← Предыдущий слайд
+            </a>
+          {% else %}
+            <div></div>
+          {% endif %}
+
+          <!-- Кнопка "Следующий слайд" -->
+          {% if current_slide.order < slides|length %}
+            <a href="{% url 'lesson_view' lesson.id current_slide.order|add:1 %}" class="btn btn-gradient mb-2">
+              Следующий слайд →
+            </a>
+          {% endif %}
+        </div>
+      {% else %}
+        <p class="text-muted">Слайды пока не добавлены 🐍</p>
+      {% endif %}
+    </section>
+  </main>
+</div>
+
+</body>
+</html>
