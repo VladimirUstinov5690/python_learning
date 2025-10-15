@@ -7,6 +7,7 @@ from python_learning_site import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('main.urls')),
+    path('users/', include('users.urls')),
 ]
 
 if settings.DEBUG:
