@@ -21,8 +21,9 @@
         <li class="nav-item"><a class="nav-link" href="#">Консоль</a></li>
         {% if user.is_authenticated %}
           <li class="nav-item">
-            <a href="{% url 'profile' %}" class="nav-link fw-semibold text-gradient">
-  👋             {{ user.username }}
+            <a href="{% url 'profile' %}" class="nav-link fw-semibold">
+              <span>👋</span>
+              <span class="">{{ user.username }}</span>
             </a>
           </li>
         {% else %}

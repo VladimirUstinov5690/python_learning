@@ -18,7 +18,7 @@ def courses(request):
 def course_detail(request, course_id):
     course = get_object_or_404(Course, id=course_id)
     modules = course.modules.prefetch_related('lessons')
-
+    
     context = {
         'course': course,
         'modules': modules,
@@ -32,9 +32,9 @@ def lesson_view(request, lesson_id, slide_order):
     course = module.course
     slides = list(lesson.slides.all())
     current_slide = next((s for s in slides if s.order == slide_order), None)
-
+    
     modules = list(course.modules.all())
-
+    
     # ищем следующий урок в текущем разделе
     lessons_in_module = list(module.lessons.all())
     next_lesson = None
@@ -42,7 +42,7 @@ def lesson_view(request, lesson_id, slide_order):
         if l.order > lesson.order:
             next_lesson = l
             break
-
+    
     # если уроков больше нет — ищем следующий модуль
     next_module = None
     next_module_first_lesson = None
@@ -52,7 +52,7 @@ def lesson_view(request, lesson_id, slide_order):
                 next_module = m
                 next_module_first_lesson = m.lessons.first()
                 break
-
+    
     context = {
         'lesson': lesson,
         'course': course,
@@ -63,5 +63,9 @@ def lesson_view(request, lesson_id, slide_order):
         'next_module': next_module,
         'next_module_first_lesson': next_module_first_lesson,
     }
-
+    
     return render(request, 'main/lesson.html', context)
+
+
+def console(request):
+    return render(request, 'main/console.html')

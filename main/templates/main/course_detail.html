@@ -19,10 +19,11 @@
         <li class="nav-item"><a class="nav-link" href="{% url 'courses' %}">Курсы</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Консоль</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'contacts' %}">Контакты</a></li>
-         <li class="nav-item">
          {% if user.is_authenticated %}
-            <a href="{% url 'profile' %}" class="nav-link fw-semibold text-gradient">
-  👋             {{ user.username }}
+          <li class="nav-item">
+            <a href="{% url 'profile' %}" class="nav-link fw-semibold">
+              <span>👋</span>
+              <span class="">{{ user.username }}</span>
             </a>
           </li>
         {% else %}

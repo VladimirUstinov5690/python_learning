@@ -1,0 +1,87 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Онлайн-консоль Python — PyMaster{% endblock %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{% static 'main/css/console.css' %}">
+{% endblock %}
+
+{% block header %}
+<header class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm py-1">
+  <div class="container">
+    <a class="navbar-brand fw-bold fs-3 text-gradient" href="{% url 'home' %}">PyMaster</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">На главную</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'courses' %}">Курсы</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'contacts' %}">Контакты</a></li>
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a href="{% url 'profile' %}" class="nav-link fw-semibold">
+              <span>👋</span>
+              <span class="">{{ user.username }}</span>
+            </a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="btn btn-gradient ms-3" href="{% url 'login' %}">Войти</a>
+          </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</header>
+{% endblock %}
+
+{% block content %}
+<section class="console-section py-5">
+  <div class="container">
+    <h2 class="fw-bold text-center mb-4">
+      <span>🧠</span>
+      <span class="text-gradient"> Онлайн-консоль Python</span>
+    </h2>
+    <p class="text-center text-muted mb-5">Пиши код, запускай и сразу смотри результат — всё прямо в браузере!</p>
+
+    <div class="console-wrapper shadow-lg">
+      <div class="editor-block">
+        <h5 class="fw-semibold mb-2 text-light">💻 Код:</h5>
+        <textarea id="code" class="code-input">print("Hello, PyMaster!")</textarea>
+        <button class="btn btn-gradient mt-3" onclick="runCode()">▶ Запустить</button>
+      </div>
+
+      <div class="output-block">
+        <h5 class="fw-semibold mb-2 text-light">🧩 Результат:</h5>
+        <pre id="output" class="code-output"></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/skulpt@1.2.0/dist/skulpt-stdlib.js"></script>
+<script>
+  function outf(text) {
+    document.getElementById("output").innerHTML += text;
+  }
+
+  function runCode() {
+    const code = document.getElementById("code").value;
+    const output = document.getElementById("output");
+    output.innerHTML = '';
+
+    Sk.configure({ output: outf, read: builtinRead });
+    Sk.misceval.asyncToPromise(() => Sk.importMainWithBody("<stdin>", false, code, true))
+      .catch(err => output.innerHTML = `<span style="color:#ff6b6b;">${err}</span>`);
+  }
+
+  function builtinRead(x) {
+    if (Sk.builtinFiles === undefined || Sk.builtinFiles["files"][x] === undefined)
+      throw "File not found: '" + x + "'";
+    return Sk.builtinFiles["files"][x];
+  }
+</script>
+{% endblock %}

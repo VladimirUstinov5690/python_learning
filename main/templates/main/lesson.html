@@ -45,7 +45,17 @@
       <!-- Блок кнопок справа -->
       <div class="d-flex gap-2 flex-wrap">
         <a href="{% url 'home' %}" class="btn btn-gradient"><i class="bi bi-house"></i> Главная</a>
-        <a href="{% url 'profile' %}" class="btn btn-gradient"><i class="bi bi-person-circle me-2"></i>Профиль</a>
+        <a href="{% url 'console' %}" class="btn btn-gradient"><i class="bi bi-laptop"></i> Консоль</a>
+        {% if user.is_authenticated %}
+            <a href="{% url 'profile' %}" class="btn btn-gradient">
+              <span>👋</span>
+              <span class="bi">{{ user.username }}</span>
+            </a>
+        {% else %}
+          <li class="nav-item">
+            <a class="btn btn-gradient ms-3" href="{% url 'login' %}">Войти</a>
+          </li>
+        {% endif %}
       </div>
     </div>
 
