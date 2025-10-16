@@ -1,7 +1,11 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, update_session_auth_hash
+from django.contrib.auth import authenticate, login, update_session_auth_hash, \
+    logout
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse
+
 from .forms import UserRegisterForm, LoginForm, ProfileForm
 
 
@@ -45,16 +49,19 @@ def profile_view(request):
         if form.is_valid():
             user = form.save(commit=False)
             
-            # Проверяем, изменён ли пароль
             new_password = form.cleaned_data.get('password')
-            if new_password:
-                user.set_password(new_password)
-                update_session_auth_hash(request,
-                                         user)  # сохраняет сессию после смены пароля
             
-            user.save()
-            messages.success(request, 'Профиль успешно обновлён.')
-            return redirect('profile')  # перезагружаем страницу
+            # Если поле пароля не пустое, обновляем его
+            if new_password and new_password.strip():
+                user.set_password(new_password)
+                user.save()
+                update_session_auth_hash(request, user)
+            else:
+                # сохраняем изменения если не ввели пароль
+                user.save(update_fields=['username', 'email', 'photo'])
+            
+            messages.success(request, 'Профиль успешно обновлён!')
+            return redirect('profile')
     else:
         form = ProfileForm(instance=user)
     
@@ -62,4 +69,5 @@ def profile_view(request):
 
 
 def logout_view(request):
-    pass
+    logout(request)
+    return HttpResponseRedirect(reverse('home'))

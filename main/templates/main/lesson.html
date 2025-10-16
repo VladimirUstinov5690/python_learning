@@ -19,23 +19,22 @@
   <aside class="sidebar">
     <div>
       <h3>🐍 {{ course.title }}</h3>
-
-      {% for m in modules %}
-        <h6 class="mt-3">{{ m.title }}</h6>
-        <ul class="nav flex-column">
-          {% for l in m.lessons.all %}
-            <li>
-              <a href="{% url 'lesson_view' l.id 1 %}"
-                 class="nav-link {% if l.id == lesson.id %}active{% endif %}">
-                 <i class="bi bi-code-slash"></i> {{ l.title }}
-              </a>
-            </li>
-          {% endfor %}
-        </ul>
-      {% endfor %}
+      <div class="modules-list">
+        {% for m in modules %}
+          <h5 class="mt-3">{{ m.title }}</h5>
+          <ul class="nav flex-column">
+            {% for l in m.lessons.all %}
+              <li>
+                <a href="{% url 'lesson_view' l.id 1 %}"
+                   class="nav-link {% if l.id == lesson.id %}active{% endif %}">
+                   <i class="bi bi-code-slash"></i> {{ l.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endfor %}
+      </div>
     </div>
-
-    <a href="{% url 'courses' %}" class="btn-home"><i class="bi bi-house-door"></i> Все курсы</a>
   </aside>
 
   <!-- Main Content -->
@@ -46,7 +45,7 @@
       <!-- Блок кнопок справа -->
       <div class="d-flex gap-2 flex-wrap">
         <a href="{% url 'home' %}" class="btn btn-gradient"><i class="bi bi-house"></i> Главная</a>
-        <button class="btn btn-gradient"><i class="bi bi-person-circle me-2"></i>Профиль</button>
+        <a href="{% url 'profile' %}" class="btn btn-gradient"><i class="bi bi-person-circle me-2"></i>Профиль</a>
       </div>
     </div>
 
@@ -64,7 +63,6 @@
         <div class="slide-content">{{ current_slide.content|safe }}</div>
 
         <div class="d-flex justify-content-between mt-5 flex-wrap">
-          <!-- Кнопка "Предыдущий слайд" -->
           {% if current_slide.order > 1 %}
             <a href="{% url 'lesson_view' lesson.id current_slide.order|add:-1 %}" class="btn btn-outline-secondary mb-2">
               ← Предыдущий слайд
@@ -73,12 +71,21 @@
             <div></div>
           {% endif %}
 
-          <!-- Кнопка "Следующий слайд" -->
-          {% if current_slide.order < slides|length %}
-            <a href="{% url 'lesson_view' lesson.id current_slide.order|add:1 %}" class="btn btn-gradient mb-2">
-              Следующий слайд →
-            </a>
-          {% endif %}
+        {% if current_slide.order < slides|length %}
+          <a href="{% url 'lesson_view' lesson.id current_slide.order|add:1 %}" class="btn btn-gradient mb-2">
+            Следующий слайд →
+          </a>
+        {% elif next_lesson %}
+          <a href="{% url 'lesson_view' next_lesson.id 1 %}" class="btn btn-success mb-2">
+            Следующий урок → {{ next_lesson.title }}
+          </a>
+        {% elif next_module_first_lesson %}
+          <a href="{% url 'lesson_view' next_module_first_lesson.id 1 %}" class="btn btn-success mb-2">
+            Следующий раздел → {{ next_module.title }}
+          </a>
+        {% else %}
+          <button class="btn btn-secondary mb-2" disabled>🎉 Курс завершён!</button>
+        {% endif %}
         </div>
       {% else %}
         <p class="text-muted">Слайды пока не добавлены 🐍</p>

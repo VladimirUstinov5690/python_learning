@@ -96,23 +96,51 @@ body {
   font-weight: 600;
 }
 
-/* Кнопка "Все курсы" */
+/* === Sidebar === */
+.sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, #7f00ff, #5a00b5);
+  color: #fff;
+  height: 100vh; /* фиксируем высоту окна */
+  padding: 20px;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Скролл только для списка модулей */
+.sidebar .modules-list {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: calc(100vh - 120px); /* 💡 отнимаем высоту заголовка и отступов */
+  padding-right: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+/* Стиль скроллбара */
+.sidebar .modules-list::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar .modules-list::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+/* Кнопка "Все курсы" остаётся снизу */
 .sidebar .btn-home {
-  display: block;
+  flex-shrink: 0;
   background: #fff;
   color: #5a00b5;
   text-align: center;
   font-weight: 600;
   border-radius: 30px;
   padding: 10px;
-  margin-top: 20px;
+  margin-top: 15px;
   text-decoration: none;
   transition: all 0.3s ease;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
-
 .sidebar .btn-home:hover {
   background: #f2f2f2;
 }

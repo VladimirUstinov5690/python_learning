@@ -8,7 +8,7 @@ from .models import CustomUser
 class UserRegisterForm(UserCreationForm):
     class Meta:
         model = CustomUser
-        fields = ['username', 'email', 'password1', 'password2']
+        fields = ['username', 'email', 'photo',  'password1', 'password2']
 
 
 # Это не связанная с моделью форма, поэтому берётся обычный forms.Form (чистая форма, без модели)
