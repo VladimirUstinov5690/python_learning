@@ -14,7 +14,7 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav align-items-center">
         <li class="nav-item"><a class="nav-link" href="{% url 'courses' %}">Курсы</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Консоль</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'console' %}">Консоль</a></li>
         <li class="nav-item"><a class="nav-link" href="{% url 'contacts' %}">Контакты</a></li>
         <li class="nav-item"><a class="btn btn-gradient ms-3" href="{% url 'logout' %}">Выйти</a></li>
       </ul>
@@ -33,7 +33,7 @@
         {% if user.photo %}
           <img src="{{ user.photo.url }}" alt="Фото пользователя" class="profile-img">
         {% else %}
-          <img src="{% static 'users/img/default_photo.png' %}" alt="Фото по умолчанию" class="profile-img">
+          <img src="{% static 'users/img/default_photo.jpg' %}" alt="Фото по умолчанию" class="profile-img">
         {% endif %}
       </div>
 
