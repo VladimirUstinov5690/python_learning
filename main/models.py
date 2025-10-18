@@ -7,6 +7,8 @@ class Course(models.Model):
     image = models.ImageField(upload_to='courses/', blank=True, null=True,
                               verbose_name="Обложка курса")
     created_at = models.DateTimeField(auto_now_add=True)
+    is_accessible = models.BooleanField(default=False,
+                                        verbose_name="Доступен без авторизации")
     
     class Meta:
         verbose_name = "Курс"
