@@ -1,0 +1,91 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{% static 'users/css/profile.css' %}">
+{% endblock %}
+
+{% block header %}
+<header class="navbar navbar-expand-lg navbar-dark fixed-top shadow-sm py-1">
+  <div class="container">
+    <a class="navbar-brand fw-bold fs-3 text-gradient" href="{% url 'home' %}">PyMaster</a>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav align-items-center">
+        <li class="nav-item"><a class="nav-link" href="{% url 'courses' %}">Курсы</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'console' %}">Консоль</a></li>
+        <li class="nav-item"><a class="nav-link" href="{% url 'contacts' %}">Контакты</a></li>
+        <li class="nav-item"><a class="btn btn-gradient ms-3" href="{% url 'logout' %}">Выйти</a></li>
+      </ul>
+    </div>
+  </div>
+</header>
+{% endblock %}
+
+{% block content %}
+<section class="profile-section mt-5 pt-5">
+  <div class="container">
+
+    <div class="profile-header d-flex flex-wrap align-items-center justify-content-center justify-content-md-start">
+      <!-- Фото -->
+      <div class="profile-photo me-md-4 mb-3 mb-md-0 text-center text-md-start">
+        {% if user.photo %}
+          <img src="{{ user.photo.url }}" alt="Фото пользователя" class="profile-img">
+        {% else %}
+          <img src="{% static 'users/img/default_photo.jpg' %}" alt="Фото по умолчанию" class="profile-img">
+        {% endif %}
+      </div>
+
+      <!-- Информация -->
+      <div class="profile-info text-start">
+        <h4 class="fw-semibold text-gradient mb-3">Информация о пользователе</h4>
+        <ul class="list-unstyled fs-6 mb-0">
+          <li><strong>Имя:</strong> {{ user.username }}</li>
+          <li><strong>Email:</strong> {{ user.email }}</li>
+          <li><strong>Дата регистрации:</strong> {{ user.date_joined|date:"d.m.Y" }}</li>
+          <li><strong>Последний вход:</strong> {{ user.last_login|date:"d.m.Y H:i" }}</li>
+          <li><strong>Статус:</strong>
+            {% if user.is_staff %}
+              <span class="text-success fw-semibold">Администратор</span>
+            {% else %}
+              <span class="text-primary fw-semibold">Пользователь</span>
+            {% endif %}
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Форма редактирования -->
+    <div class="edit-form mt-5">
+      <h5 class="fw-semibold text-gradient mb-3">Редактировать профиль</h5>
+
+      <form method="POST" enctype="multipart/form-data" class="text-start mx-auto" style="max-width: 600px;">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="id_username">Имя пользователя</label>
+          <input type="text" name="username" id="id_username" value="{{ form.username.value|default_if_none:user.username }}" class="input-field" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="id_email">Email</label>
+          <input type="email" name="email" id="id_email" value="{{ form.email.value|default_if_none:user.email }}" class="input-field" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="id_photo">Фото профиля</label>
+          <input type="file" name="photo" id="id_photo" class="form-control">
+        </div>
+
+        <div class="mb-3">
+          <label for="id_password">Пароль</label>
+          <input type="password" name="password" id="id_password" class="input-field" placeholder="Новый пароль (если нужно)">
+        </div>
+
+        <button type="submit" class="btn btn-gradient w-100 mt-3">Сохранить изменения</button>
+      </form>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

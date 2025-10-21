@@ -1,0 +1,312 @@
+/* === Общие стили === */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f8f9fa;
+  overflow-x: hidden !important;
+}
+
+#wrapper {
+  display: flex;
+  overflow-x: hidden !important;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* === Sidebar === */
+.sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, #7f00ff, #5a00b5);
+  color: #fff;
+  min-height: 100vh;
+  padding: 20px;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-x: hidden; /* 💡 гарантирует отсутствие горизонтальной полосы */
+}
+
+.sidebar * {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+}
+
+/* Заголовок курса */
+.sidebar h3 {
+  font-weight: 600;
+  margin-bottom: 20px;
+  word-break: break-word;
+}
+
+/* Секции и навигация */
+.sidebar h6 {
+  font-size: 0.9rem;
+  margin-top: 20px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  opacity: 0.9;
+}
+
+.sidebar .nav {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-right: 4px; /* чуть-чуть, чтобы не перекрывать скролл */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+/* Стили для скроллбара в sidebar */
+.sidebar .nav::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar .nav::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+/* ссылки в боковом меню */
+.sidebar .nav-link {
+  color: #e0d4ff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 8px 10px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  max-width: 100%;
+}
+
+.sidebar .nav-link i {
+  flex-shrink: 0;
+}
+
+.sidebar .nav-link:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.sidebar .nav-link.active {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  font-weight: 600;
+}
+
+/* === Sidebar === */
+.sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, #7f00ff, #5a00b5);
+  color: #fff;
+  height: 100vh; /* фиксируем высоту окна */
+  padding: 20px;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Скролл только для списка модулей */
+.sidebar .modules-list {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: calc(100vh - 120px); /* 💡 отнимаем высоту заголовка и отступов */
+  padding-right: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+/* Стиль скроллбара */
+.sidebar .modules-list::-webkit-scrollbar {
+  width: 6px;
+}
+.sidebar .modules-list::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+/* Кнопка "Все курсы" остаётся снизу */
+.sidebar .btn-home {
+  flex-shrink: 0;
+  background: #fff;
+  color: #5a00b5;
+  text-align: center;
+  font-weight: 600;
+  border-radius: 30px;
+  padding: 10px;
+  margin-top: 15px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.sidebar .btn-home:hover {
+  background: #f2f2f2;
+}
+
+/* === Main Content === */
+#page-content-wrapper {
+  margin-left: 260px;
+  padding: 40px;
+  flex-grow: 1;
+  overflow-x: hidden !important;
+  box-sizing: border-box;
+}
+
+.top-bar h2 {
+  font-size: 1.8rem;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btn-gradient {
+  background: linear-gradient(90deg, #7f00ff, #5a00b5, #4b0082);
+  color: #fff;
+  border: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-gradient:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(127, 0, 255, 0.25);
+}
+
+/* === Пагинация (слайдер шаги) === */
+.progress-steps {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.progress-steps .step {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(127, 0, 255, 0.25);
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.progress-steps .step.active {
+  background: #7f00ff;
+  box-shadow: 0 0 10px rgba(127, 0, 255, 0.6);
+  transform: scale(1.2);
+}
+
+/* === Контент урока === */
+.lesson-content {
+  background: #fff;
+  border-radius: 12px;
+  padding: 25px;
+  overflow-x: hidden;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.lesson-content h4 {
+  color: #4b0082;
+  word-break: break-word;
+}
+
+.lesson-content p {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  white-space: normal;
+}
+
+.example {
+  border-left: 4px solid #7f00ff !important;
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, #7f00ff, #5a00b5, #4b0082);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* === Полное отключение горизонтальной прокрутки === */
+html,
+body,
+#wrapper,
+#page-content-wrapper,
+.sidebar,
+.lesson-content {
+  overflow-x: hidden !important;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+/* === Скрываем нижнюю горизонтальную полосу, если вдруг появится === */
+body::-webkit-scrollbar:horizontal {
+  display: none;
+}
+
+/* === Кнопки навигации слайдов === */
+.lesson-content .btn {
+  min-width: 180px;
+  font-weight: 600;
+}
+
+.btn-outline-secondary {
+  border-radius: 30px;
+  border: 2px solid #7f00ff;
+  color: #7f00ff;
+  background: #fff;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-secondary:hover {
+  background: #7f00ff;
+  color: #fff;
+  box-shadow: 0 5px 15px rgba(127, 0, 255, 0.25);
+}
+
+/* === Кнопки в верхней панели === */
+.top-bar .btn {
+  border-radius: 30px;
+  padding: 8px 16px;
+  font-weight: 600;
+}
+
+/* Стили для блоков кода */
+pre code {
+  display: block;
+  background: #1f1f2e;           /* чуть темнее фон */
+  color: #e4e4e4;                /* светлый текст */
+  border-left: 4px solid #7f00ff;/* фиолетовая полоса слева */
+  border-radius: 10px;
+  padding: 15px 20px;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  white-space: pre-wrap;         /* перенос длинных строк */
+  word-break: break-word;
+  box-shadow: 0 4px 12px rgba(127, 0, 255, 0.1); /* лёгкая подсветка */
+}
+
+/* Контейнер <pre> управляет скроллом */
+pre {
+  margin-bottom: 1.5rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: #9d7dff #2a2a3a;
+}
+
+/* Тонкий скролл для Chrome/Edge/Safari */
+pre::-webkit-scrollbar {
+  height: 6px;
+}
+
+pre::-webkit-scrollbar-thumb {
+  background-color: #9d7dff;
+  border-radius: 4px;
+}
+
+pre::-webkit-scrollbar-track {
+  background-color: #2a2a3a;
+}
